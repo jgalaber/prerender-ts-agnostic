@@ -1,0 +1,11 @@
+{
+  "name": "simple-prerender-engine",
+  "private": true,
+  "scripts": {
+    "dev": "node index.js",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "prerender": "^5.21.6"
+  }
+}
