@@ -1,0 +1,15 @@
+{
+  "name": "prerender-vue-example",
+  "module": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "bun index.ts"
+  },
+  "dependencies": {
+    "prerender-agnostic": "file:../../prerender-agnostic/prerender-agnostic-0.1.0.tgz",
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.20"
+  }
+}

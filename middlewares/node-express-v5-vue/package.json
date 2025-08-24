@@ -1,0 +1,12 @@
+{
+  "name": "prerender-vue-example",
+  "module": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "prerender-agnostic": "file:../../prerender-agnostic/prerender-agnostic-0.1.0.tgz",
+    "express": "5"
+  }
+}
