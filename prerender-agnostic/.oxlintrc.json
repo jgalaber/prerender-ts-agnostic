@@ -1,0 +1,13 @@
+{
+  "env": { "node": true, "es2022": true },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "plugins": ["typescript", "unicorn", "oxc"],
+  "rules": {
+    "no-console": "warn"
+  },
+  "ignorePatterns": ["node_modules", "dist", "coverage", "**/*.min.js"]
+}

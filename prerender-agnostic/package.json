@@ -1,0 +1,46 @@
+{
+  "name": "prerender-agnostic",
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build:roll": "rolldown -c rolldown.config.mjs",
+    "build:types": "tsc -p tsconfig.build.json --emitDeclarationOnly",
+    "build": "npm run pre-build && npm run build:roll && npm run build:types",
+    "pre-build": "rm -rf dist && npm run fmt && npm run lint:fix",
+    "dev": "tsx watch examples/server-node.ts",
+    "start": "node dist/index.cjs",
+    "local:pkg": "npm run build && npm pack",
+    "lint": "oxlint ./src",
+    "lint:fix": "oxlint --fix ./src",
+    "lint:strict": "oxlint --deny-warnings ./src",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.11",
+    "oxlint": "^1.12.0",
+    "prettier": "^3.6.2",
+    "rolldown": "^1.0.0-beta.33",
+    "tsx": "^4.16.0",
+    "typescript": "^5.0.0"
+  }
+}
