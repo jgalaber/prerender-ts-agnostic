@@ -1,0 +1,98 @@
+# =========================
+# Node.js / Package managers
+# =========================
+node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+# =========================
+# TypeScript / Tooling caches
+# =========================
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# =========================
+# Build outputs
+# =========================
+dist/
+build/
+out/
+.tmp/
+.temp/
+.tmp-*/
+.cache/
+.esbuild/
+.rollup.cache/
+.parcel-cache/
+
+# =========================
+# Tests & coverage
+# =========================
+coverage/
+.nyc_output/
+.vitest/
+.jest/
+test-results/
+
+# =========================
+# Environment files
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# k6 reports / artifacts
+# =========================
+reports/
+k6-results/
+*.har
+
+# =========================
+# Local package artifacts
+# =========================
+*.tgz
+
+# =========================
+# PM2 / logs
+# =========================
+logs/
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# Editors / IDE
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS junk
+# =========================
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# =========================
+# Bun
+# =========================
+bun.lockb
+.bun/
+
+# =========================
+# Misc
+# =========================
+*.orig
+*.rej
