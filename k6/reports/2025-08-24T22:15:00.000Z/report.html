@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Express Prerender vs TS Express v4 vs TS Express v5 vs Bun.sh</title>
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{margin:1rem;font-family:sans-serif}
+h1,h2{margin-bottom:0.3rem}
+table{width:100%;margin:1rem 0}
+th,td{text-align:center}
+.best{background:#c8e6c9;font-weight:600}
+.worst{background:#ffcdd2;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+.card{padding:12px;border:1px solid #e0e0e0;border-radius:8px}
+canvas{max-height:360px}
+</style>
+</head>
+<body>
+<h1>Express Prerender vs TS Express v4 vs TS Express v5 vs Bun.sh</h1>
+
+<div class="grid">
+  <div class="card"><h2>Human – Latency (avg, p50, p95)</h2><canvas id="chartHumanLatency"></canvas></div>
+  <div class="card"><h2>Bot – Latency (avg, p50, p95)</h2><canvas id="chartBotLatency"></canvas></div>
+  <div class="card"><h2>Human – Fail rate (%)</h2><canvas id="chartHumanFail"></canvas></div>
+  <div class="card"><h2>Bot – Fail rate (%)</h2><canvas id="chartBotFail"></canvas></div>
+  <div class="card"><h2>Human – Total requests</h2><canvas id="chartHumanReq"></canvas></div>
+  <div class="card"><h2>Bot – Total requests</h2><canvas id="chartBotReq"></canvas></div>
+</div>
+
+
+<h2>Human</h2>
+<table class="pure-table pure-table-striped">
+  <thead><tr><th>metric</th><th>Express Prerender</th><th>TS Express v4</th><th>TS Express v5</th><th>Bun.sh</th></tr></thead>
+  <tbody>
+    <tr>
+            <td>avg</td>
+            <td class="">1.25</td>
+            <td class="">1.24</td>
+            <td class="worst">1.34</td>
+            <td class="best">1.04</td>
+          </tr><tr>
+            <td>p50</td>
+            <td class="best">1.18</td>
+            <td class="">1.19</td>
+            <td class="worst">1.29</td>
+            <td class="">1.28</td>
+          </tr><tr>
+            <td>p90</td>
+            <td class="">1.71</td>
+            <td class="best">1.65</td>
+            <td class="worst">1.81</td>
+            <td class="">1.72</td>
+          </tr><tr>
+            <td>p95</td>
+            <td class="">1.88</td>
+            <td class="best">1.78</td>
+            <td class="worst">1.94</td>
+            <td class="">1.81</td>
+          </tr><tr>
+            <td>p99</td>
+            <td class="worst">2.32</td>
+            <td class="">2.11</td>
+            <td class="">2.29</td>
+            <td class="best">2.02</td>
+          </tr><tr>
+            <td>min</td>
+            <td class="">0.35</td>
+            <td class="">0.37</td>
+            <td class="worst">0.41</td>
+            <td class="best">0.18</td>
+          </tr><tr>
+            <td>max</td>
+            <td class="">16.81</td>
+            <td class="">17.65</td>
+            <td class="worst">18.32</td>
+            <td class="best">15.95</td>
+          </tr>
+    <tr><td>fail rate</td><td class="best">0.00</td><td class="best">0.00</td><td class="best">0.00</td><td class="best">0.00</td></tr>
+    <tr><td>total req</td><td class="best">11901.00</td><td class="best">11901.00</td><td class="best">11901.00</td><td class="best">11901.00</td></tr>
+  </tbody>
+</table>
+<h2>Bot</h2>
+<table class="pure-table pure-table-striped">
+  <thead><tr><th>metric</th><th>Express Prerender</th><th>TS Express v4</th><th>TS Express v5</th><th>Bun.sh</th></tr></thead>
+  <tbody>
+    <tr>
+            <td>avg</td>
+            <td class="">1.69</td>
+            <td class="best">1.50</td>
+            <td class="">1.57</td>
+            <td class="worst">2.54</td>
+          </tr><tr>
+            <td>p50</td>
+            <td class="">1.63</td>
+            <td class="best">1.45</td>
+            <td class="">1.50</td>
+            <td class="worst">2.68</td>
+          </tr><tr>
+            <td>p90</td>
+            <td class="">2.24</td>
+            <td class="best">2.02</td>
+            <td class="">2.11</td>
+            <td class="worst">4.67</td>
+          </tr><tr>
+            <td>p95</td>
+            <td class="">2.46</td>
+            <td class="best">2.25</td>
+            <td class="">2.36</td>
+            <td class="worst">5.04</td>
+          </tr><tr>
+            <td>p99</td>
+            <td class="">2.83</td>
+            <td class="best">2.59</td>
+            <td class="">2.75</td>
+            <td class="worst">5.73</td>
+          </tr><tr>
+            <td>min</td>
+            <td class="">0.50</td>
+            <td class="worst">0.52</td>
+            <td class="">0.49</td>
+            <td class="best">0.36</td>
+          </tr><tr>
+            <td>max</td>
+            <td class="">24.98</td>
+            <td class="">25.29</td>
+            <td class="best">20.76</td>
+            <td class="worst">51.70</td>
+          </tr>
+    <tr><td>fail rate</td><td class="best">0.00</td><td class="best">0.00</td><td class="best">0.00</td><td class="best">0.00</td></tr>
+    <tr><td>total req</td><td class="worst">11900.00</td><td class="worst">11900.00</td><td class="best">11901.00</td><td class="best">11901.00</td></tr>
+  </tbody>
+</table>
+
+<script>
+const labels = ["Express Prerender","TS Express v4","TS Express v5","Bun.sh"];
+const human = {"avg":[1.2466449037895972,1.2395739853793788,1.3410866313755199,1.0358349718511095],"p50":[1.177,1.192,1.291,1.284],"p95":[1.875,1.778,1.94,1.812],"fail":[0,0,0,0],"req":[11901,11901,11901,11901]};
+const bot = {"avg":[1.6875631092436907,1.502973277310924,1.5679402571212526,2.540288211074692],"p50":[1.632,1.447,1.502,2.681],"p95":[2.455,2.254099999999999,2.363,5.039],"fail":[0,0,0,0],"req":[11900,11900,11901,11901]};
+
+function mkBar(id, ds) {
+  new Chart(document.getElementById(id), {
+    type: 'bar',
+    data: { labels, datasets: ds },
+    options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
+  });
+}
+
+mkBar('chartHumanLatency', [
+  { label: 'avg (ms)', data: human.avg },
+  { label: 'p50 (ms)', data: human.p50 },
+  { label: 'p95 (ms)', data: human.p95 },
+]);
+mkBar('chartBotLatency', [
+  { label: 'avg (ms)', data: bot.avg },
+  { label: 'p50 (ms)', data: bot.p50 },
+  { label: 'p95 (ms)', data: bot.p95 },
+]);
+mkBar('chartHumanFail', [{ label: 'fail rate (%)', data: human.fail }]);
+mkBar('chartBotFail', [{ label: 'fail rate (%)', data: bot.fail }]);
+mkBar('chartHumanReq', [{ label: 'total req', data: human.req }]);
+mkBar('chartBotReq', [{ label: 'total req', data: bot.req }]);
+</script>
+
+</body>
+</html>
