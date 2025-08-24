@@ -54,37 +54,47 @@ npm i prerender-agnostic
 
 ```typescript
 import express from "express";
-import { Prerender } from "./core/prerender";
-import { expressUniversal } from "./adapters/express-universal";
+import Prerender, { Adapters } from "prerender-agnostic";
 
+const PORT = 8001;
 const app = express();
-const prer = new Prerender()
-  .set("forwardHeaders", true)
-  .set(
-    "prerenderServiceUrl",
-    process.env.PRERENDER_SERVICE_URL || "http://localhost:9000/"
+
+app.use(
+  Adapters.expressPrerender(
+    new Prerender().set("prerenderServiceUrl", "http://localhost:3000")
+  )
+);
+app.use(express.static("../public"));
+
+app.listen(PORT, () => {
+  console.log(
+    `Prerender Vue.js example app is listening at http://localhost:${PORT}`
   );
-
-app.use(expressUniversal(prer));
-
-app.listen(8001, () => console.log("TS Express v4 on :8001"));
+});
 ```
 
 ### Bun example:
 
 ```typescript
-import { Bun } from "bun";
-import { Prerender } from "./core/prerender";
-import { prerenderBun } from "./adapters/prerender-bun";
+import { file } from "bun";
+import Prerender, { Adapters } from "prerender-agnostic";
 
-const prer = new Prerender().set(
+const prerender = new Prerender().set(
   "prerenderServiceUrl",
-  "http://localhost:9000/"
+  "http://localhost:3000"
 );
+
 Bun.serve({
   port: 8003,
-  fetch: prerenderBun(prer, () => new Response("OK app", { status: 200 })),
+
+  fetch: Adapters.bunPrerender(prerender, (req) => {
+    return new Response(file("../public/index.html"), {
+      headers: { "Content-Type": "text/html; charset=utf-8" },
+    });
+  }),
 });
+
+console.log("🚀 http://localhost:8003");
 ```
 
 ## Results
