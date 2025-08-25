@@ -27,9 +27,9 @@ This project is a modernized, adapter-agnostic reimplementation of [prerender-no
 
 ```typescript
 prerender
-  .set("prerenderServiceUrl", "http://localhost:9000/")
-  .whitelisted(["^/blog"])
-  .blacklisted(["^/api"]);
+  .set('prerenderServiceUrl', 'http://localhost:9000/')
+  .whitelisted(['^/blog'])
+  .blacklisted(['^/api']);
 ```
 
 ## Adapter-agnostic architecture
@@ -44,31 +44,25 @@ Each adapter simply adapts (req, res, next) to the core Prerender interfaces. No
 
 ## Quick start
 
-Install (example with npm):
-
-```bash
-npm i prerender-agnostic
-```
-
 ### Wire an adapter (Express v4 example):
 
 ```typescript
-import express from "express";
-import Prerender, { Adapters } from "prerender-agnostic";
+import express from 'express';
+import Prerender, { Adapters } from 'prerender-agnostic';
 
 const PORT = 8001;
 const app = express();
 
 app.use(
   Adapters.expressPrerender(
-    new Prerender().set("prerenderServiceUrl", "http://localhost:3000")
-  )
+    new Prerender().set('prerenderServiceUrl', 'http://localhost:3000'),
+  ),
 );
-app.use(express.static("../public"));
+app.use(express.static('../public'));
 
 app.listen(PORT, () => {
   console.log(
-    `Prerender Vue.js example app is listening at http://localhost:${PORT}`
+    `Prerender Vue.js example app is listening at http://localhost:${PORT}`,
   );
 });
 ```
@@ -76,25 +70,25 @@ app.listen(PORT, () => {
 ### Bun example:
 
 ```typescript
-import { file } from "bun";
-import Prerender, { Adapters } from "prerender-agnostic";
+import { file } from 'bun';
+import Prerender, { Adapters } from 'prerender-agnostic';
 
 const prerender = new Prerender().set(
-  "prerenderServiceUrl",
-  "http://localhost:3000"
+  'prerenderServiceUrl',
+  'http://localhost:3000',
 );
 
 Bun.serve({
   port: 8003,
 
   fetch: Adapters.bunPrerender(prerender, (req) => {
-    return new Response(file("../public/index.html"), {
-      headers: { "Content-Type": "text/html; charset=utf-8" },
+    return new Response(file('../public/index.html'), {
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
     });
   }),
 });
 
-console.log("🚀 http://localhost:8003");
+console.log('🚀 http://localhost:8003');
 ```
 
 ## Results
@@ -213,7 +207,7 @@ npm run local:pkg
 ```bash
 cd simple-prerender-engine
 npm install
-npm run dev
+pm2 start npm --name mock -- run dev # or npm run dev
 ```
 
 ### Step Three: Start the 4 servers (middlewares/adapters)
@@ -221,11 +215,10 @@ npm run dev
 #### PM2
 
 ```bash
-pm2 start npm --name mock              -- run dev --cwd ./simple-prerender-engine
-pm2 start npm --name express-prerender -- run dev --cwd ./middleware/express-prerender
-pm2 start npm --name ts-express-v4     -- run dev --cwd ./middleware/ts-express-v4
-pm2 start npm --name ts-express-v5     -- run dev --cwd ./middleware/ts-express-v5
-pm2 start bun --name bun               -- run dev --cwd ./middleware/bun-serve-vue
+pm2 start npm --name express-prerender -- run dev --cwd ./test/middlewares/prerender-node-express-v4-vue
+pm2 start npm --name ts-express-v4     -- run dev --cwd ./test/middlewares/node-express-v4-vue
+pm2 start npm --name ts-express-v5     -- run dev --cwd ./test/middlewares/node-express-v5-vue
+pm2 start bun --name bun               -- run dev --cwd ./test/middlewares/bun-serve-vue
 ```
 
 Monit
@@ -238,22 +231,22 @@ pm2 monit
 
 ```bash
 # A) Express Prerender (baseline derived from prerender-node)
-cd middleware/express-prerender
+cd ./test/middlewares/prerender-node-express-v4-vue
 npm install
 npm run dev   # → typically :8000
 
 # B) TS Express v4
-cd ../ts-express-v4
+cd ./test/middlewares/node-express-v4-vue
 npm install
 npm run dev   # → :8001
 
 # C) TS Express v5
-cd ../ts-express-v5
+cd ./test/middlewares/node-express-v5-vue
 npm install
 npm run dev   # → :8002
 
 # D) Bun.sh
-cd ../bun
+cd ./test/middlewares/bun-serve-vue
 bun install   # (You can also install bun from node >> $ npm i -g bun)
 bun run dev   # → :8003
 ```
