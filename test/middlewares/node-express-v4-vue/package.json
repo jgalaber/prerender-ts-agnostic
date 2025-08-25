@@ -6,7 +6,7 @@
     "dev": "node index.js"
   },
   "dependencies": {
-    "prerender-agnostic": "file:../../prerender-agnostic/prerender-agnostic-0.1.0.tgz",
+    "prerender-agnostic": "file:../../../prerender-agnostic-0.1.0.tgz",
     "express": "4.17.1"
   }
 }
